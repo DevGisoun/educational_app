@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "111587241046",
+    "project_id": "gisoun-educational-app-001",
+    "storage_bucket": "gisoun-educational-app-001.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:111587241046:android:50811734c5aa2ae6a61ff7",
+        "android_client_info": {
+          "package_name": "com.example.educational_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "111587241046-fprje8uui2g4gb1iceamodgavotvrvo5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7opaWWlZ59GD23cphvDza9SdrHNfETJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "111587241046-fprje8uui2g4gb1iceamodgavotvrvo5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

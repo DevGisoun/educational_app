@@ -45,7 +45,9 @@ class IntroductionScreen extends StatelessWidget {
                   AppLayout.getHeight(40),
                 ),
                 AppCircleButton(
-                  onTap: () {},
+                  onTap: () {
+                    Get.offAndToNamed('/home');
+                  },
                   child: Icon(
                     Icons.arrow_forward,
                     size: AppLayout.getHeight(35),

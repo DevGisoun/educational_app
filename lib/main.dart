@@ -23,7 +23,7 @@ import 'package:get/get.dart';
 //   );
 // }
 
-void main(List<String> args) {
+void main(List<String> args) async {
   /// 다음에 호출되는 함수의 모든 실행이 끝날 때까지 대기
   ///
   /// (ex. 서버 연결, 메모리 초기화, 비동기 동작 등)
@@ -31,6 +31,9 @@ void main(List<String> args) {
 
   /// 초기 App 종속성 호출
   InitialBindings().dependencies();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 

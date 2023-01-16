@@ -1,0 +1,55 @@
+import 'package:educational_app/src/configs/themes/app_colors.dart';
+import 'package:educational_app/src/utils/app_layout.dart';
+import 'package:flutter/material.dart';
+
+class MainButton extends StatelessWidget {
+  final String title;
+  final VoidCallback onTap;
+  final bool enabled;
+  final Widget? child;
+  final Color? color;
+
+  const MainButton({
+    super.key,
+    this.title = '',
+    required this.onTap,
+    this.enabled = true,
+    this.child,
+    this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      type: MaterialType.transparency,
+      child: SizedBox(
+        height: AppLayout.getHeight(55),
+        child: InkWell(
+          onTap: enabled == false ? null : onTap,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                AppLayout.getHeight(15),
+              ),
+              color: color ?? Theme.of(context).cardColor,
+            ),
+            width: double.maxFinite,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: child ??
+                  Center(
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: onSurfaceTextColor,
+                      ),
+                    ),
+                  ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

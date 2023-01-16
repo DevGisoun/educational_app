@@ -17,6 +17,8 @@ class DarkTheme with SubThemeDataMixin {
   buildDarkTheme() {
     final ThemeData systemDarkTheme = ThemeData.dark();
     return systemDarkTheme.copyWith(
+      primaryColor: primaryDarkColor_2,
+      visualDensity: VisualDensity.adaptivePlatformDensity,
       iconTheme: getIconTheme(),
       textTheme: getTextThemes().apply(
         bodyColor: mainTextColorDark,

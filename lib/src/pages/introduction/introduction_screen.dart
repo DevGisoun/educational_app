@@ -15,7 +15,7 @@ class IntroductionScreen extends StatelessWidget {
       body: Center(
         child: Container(
           decoration: BoxDecoration(
-            gradient: mainGradient(context),
+            gradient: mainGradient(),
           ),
           child: Padding(
             padding: EdgeInsets.symmetric(

@@ -27,11 +27,15 @@ const mainGradientDark = LinearGradient(
 );
 
 /// 다크 테마 여부 체크 후 Gradient 색상 반환
-LinearGradient mainGradient(BuildContext context) {
-  return UIParameters.isDarkMode(context)
-      ? mainGradientDark
-      : mainGradientLight;
+LinearGradient mainGradient() {
+  return UIParameters.isDarkMode() ? mainGradientDark : mainGradientLight;
 }
 
 /// White Color
 const Color onSurfaceTextColor = Colors.white;
+
+Color customScaffoldColor(BuildContext context) {
+  return UIParameters.isDarkMode()
+      ? const Color(0xff2e3c62)
+      : const Color.fromARGB(255, 240, 237, 255);
+}

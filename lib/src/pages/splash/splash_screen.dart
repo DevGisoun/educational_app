@@ -10,7 +10,7 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: mainGradient(context),
+          gradient: mainGradient(),
         ),
         child: Center(
           child: SizedBox(

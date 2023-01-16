@@ -2,6 +2,7 @@ import 'package:educational_app/src/controllers/app_zoom_drawer_controller.dart'
 import 'package:educational_app/src/pages/home/home_screen.dart';
 import 'package:educational_app/src/pages/introduction/introduction_screen.dart';
 import 'package:educational_app/src/pages/login/login_screen.dart';
+import 'package:educational_app/src/pages/question/questions_page.dart';
 import 'package:get/get.dart';
 
 import '../controllers/question_papers/question_paper_controller.dart';
@@ -30,6 +31,10 @@ class AppRoutes {
         GetPage(
           name: LoginScreen.routeName,
           page: () => const LoginScreen(),
+        ),
+        GetPage(
+          name: QuestionsPage.routeName,
+          page: () => const QuestionsPage(),
         ),
       ];
 }

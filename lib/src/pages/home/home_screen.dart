@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:educational_app/src/configs/themes/app_colors.dart';
 import 'package:educational_app/src/configs/themes/app_icons.dart';
 import 'package:educational_app/src/configs/themes/custom_text_styles.dart';

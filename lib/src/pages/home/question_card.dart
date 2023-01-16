@@ -32,6 +32,7 @@ class QuestionCard extends GetView<QuestionPaperController> {
         onTap: () {
           controller.navigateToQuestions(
             paper: model,
+            tryAgain: false,
           );
         },
         child: Padding(

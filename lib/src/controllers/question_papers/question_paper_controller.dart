@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:educational_app/src/controllers/auth_controller.dart';
 import 'package:educational_app/src/firebase_ref/references.dart';
 import 'package:educational_app/src/models/question_paper_model.dart';
+import 'package:educational_app/src/pages/question/questions_page.dart';
 import 'package:educational_app/src/services/firebase_storage_service.dart';
 import 'package:get/get.dart';
 
@@ -52,7 +53,10 @@ class QuestionPaperController extends GetxController {
       if (tryAgain) {
         Get.back();
       } else {
-        print('로그인 됐음');
+        Get.toNamed(
+          QuestionsPage.routeName,
+          arguments: paper,
+        );
       }
     } else {
       _authController.showLoginAlertDialog();

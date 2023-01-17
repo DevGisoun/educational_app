@@ -1,4 +1,5 @@
 import 'package:educational_app/src/controllers/app_zoom_drawer_controller.dart';
+import 'package:educational_app/src/controllers/question_papers/questions_controller.dart';
 import 'package:educational_app/src/pages/home/home_screen.dart';
 import 'package:educational_app/src/pages/introduction/introduction_screen.dart';
 import 'package:educational_app/src/pages/login/login_screen.dart';
@@ -35,6 +36,11 @@ class AppRoutes {
         GetPage(
           name: QuestionsPage.routeName,
           page: () => const QuestionsPage(),
+          binding: BindingsBuilder(
+            () {
+              Get.put(QuestionsController());
+            },
+          ),
         ),
       ];
 }

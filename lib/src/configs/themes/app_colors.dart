@@ -3,6 +3,7 @@
 import 'package:educational_app/src/configs/themes/app_light_theme.dart';
 import 'package:educational_app/src/configs/themes/ui_parameters.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'app_dark_theme.dart';
 
@@ -38,4 +39,16 @@ Color customScaffoldColor(BuildContext context) {
   return UIParameters.isDarkMode()
       ? const Color(0xff2e3c62)
       : const Color.fromARGB(255, 240, 237, 255);
+}
+
+Color answerSelectedColor() {
+  return UIParameters.isDarkMode()
+      ? Theme.of(Get.context!).cardColor.withOpacity(0.5)
+      : Theme.of(Get.context!).primaryColor;
+}
+
+Color answerBorderColor() {
+  return UIParameters.isDarkMode()
+      ? const Color.fromARGB(255, 20, 46, 158)
+      : const Color.fromARGB(255, 221, 221, 221);
 }

@@ -73,7 +73,7 @@ class DataUploader extends GetxController {
           questionPath,
           {
             'question': questions.question,
-            'corrent_answer': questions.correctAnswer,
+            'correct_answer': questions.correctAnswer,
           },
         );
 

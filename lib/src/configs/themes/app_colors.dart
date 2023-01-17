@@ -35,6 +35,10 @@ LinearGradient mainGradient() {
 /// White Color
 const Color onSurfaceTextColor = Colors.white;
 
+const correctAnswerColor = Color(0xff3ac3cb);
+const wrongAnswerColor = Color(0xfff85187);
+const notAnswerColor = Color(0xff2a3c65);
+
 Color customScaffoldColor(BuildContext context) {
   return UIParameters.isDarkMode()
       ? const Color(0xff2e3c62)

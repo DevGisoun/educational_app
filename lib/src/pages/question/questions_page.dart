@@ -3,6 +3,7 @@ import 'package:educational_app/src/configs/themes/custom_text_styles.dart';
 import 'package:educational_app/src/configs/themes/ui_parameters.dart';
 import 'package:educational_app/src/controllers/question_papers/questions_controller.dart';
 import 'package:educational_app/src/firebase_ref/loading_status.dart';
+import 'package:educational_app/src/pages/question/test_overview_page.dart';
 import 'package:educational_app/src/utils/app_layout.dart';
 import 'package:educational_app/src/widgets/common/background_decoration.dart';
 import 'package:educational_app/src/widgets/common/custom_app_bar.dart';
@@ -10,6 +11,7 @@ import 'package:educational_app/src/widgets/common/main_button.dart';
 import 'package:educational_app/src/widgets/common/question_place_holder.dart';
 import 'package:educational_app/src/widgets/content_area.dart';
 import 'package:educational_app/src/widgets/questions/answer_card.dart';
+import 'package:educational_app/src/widgets/questions/countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -37,7 +39,12 @@ class QuestionsPage extends GetView<QuestionsController> {
               ),
             ),
           ),
-          child: const Text('Timer'),
+          child: Obx(
+            () => CountdownTimer(
+              time: controller.time.value,
+              color: onSurfaceTextColor,
+            ),
+          ),
         ),
         showActionIcon: true,
         titleWidget: Obx(
@@ -141,7 +148,7 @@ class QuestionsPage extends GetView<QuestionsController> {
                           child: MainButton(
                             onTap: () {
                               controller.isLastQuestion
-                                  ? Container()
+                                  ? Get.toNamed(TestOverviewPage.routeName)
                                   : controller.nextQuestion();
                             },
                             title:

@@ -69,7 +69,7 @@ class QuestionsPage extends GetView<QuestionsController> {
                   child: ContentArea(
                     child: SingleChildScrollView(
                       padding: EdgeInsets.only(
-                        top: AppLayout.getHeight(50),
+                        top: AppLayout.getHeight(25),
                       ),
                       child: Column(
                         children: [
@@ -82,10 +82,10 @@ class QuestionsPage extends GetView<QuestionsController> {
                             builder: (context) {
                               return ListView.separated(
                                 shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
                                 padding: EdgeInsets.only(
                                   top: AppLayout.getHeight(25),
                                 ),
-                                physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (BuildContext context, int index) {
                                   final answer = controller
                                       .currentQuestion.value!.answers[index];
@@ -140,6 +140,9 @@ class QuestionsPage extends GetView<QuestionsController> {
                             ),
                           ),
                         ),
+                      ),
+                      Gap(
+                        AppLayout.getWidth(20),
                       ),
                       Expanded(
                         child: Visibility(

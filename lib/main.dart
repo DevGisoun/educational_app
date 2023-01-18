@@ -24,26 +24,30 @@ import 'package:get/get.dart';
 // }
 
 void main(List<String> args) async {
-  /// 다음에 호출되는 함수의 모든 실행이 끝날 때까지 대기
-  ///
-  /// (ex. 서버 연결, 메모리 초기화, 비동기 동작 등)
+  // 다음에 호출되는 함수의 모든 실행이 끝날 때까지 대기
+  // (ex. 서버 연결, 메모리 초기화, 비동기 동작 등)
   WidgetsFlutterBinding.ensureInitialized();
 
-  /// 초기 App 종속성 호출
+  // 초기 App 종속성 호출
   InitialBindings().dependencies();
+
+  // Firebase App 인스턴스 초기화
   await Firebase.initializeApp(
+    // 기기 플랫폼에 따른 초기화 옵션
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(const EducationalApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+/// App 실행 시 가장 먼저 실행
+class EducationalApp extends GetView<ThemeController> {
+  const EducationalApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: Get.find<ThemeController>().lightTheme,
+      theme: controller.lightTheme,
+      darkTheme: controller.darkTheme,
       getPages: AppRoutes.routes(),
     );
   }

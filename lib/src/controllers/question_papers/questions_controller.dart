@@ -157,6 +157,9 @@ class QuestionsController extends GetxController {
   }
 
   void tryAgain() {
+    _startTimer(questionPaperModel.timeSeconds);
+    questionIndex.value = 0;
+    currentQuestion.value = allQuestions[questionIndex.value];
     Get.find<QuestionPaperController>().navigateToQuestions(
       paper: questionPaperModel,
       tryAgain: true,

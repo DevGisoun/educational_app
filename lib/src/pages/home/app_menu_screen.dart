@@ -84,10 +84,18 @@ class AppMenuScreen extends GetView<AppZoomDrawerController> {
                     const Spacer(
                       flex: 4,
                     ),
-                    _DrawerButton(
-                      icon: Icons.logout,
-                      label: 'Logout',
-                      onPressed: () => controller.signOut(),
+                    Obx(
+                      () => _DrawerButton(
+                        // icon: Icons.logout,
+                        icon: controller.checkLogIn()
+                            ? Icons.logout
+                            : Icons.login,
+                        // label: 'Logout',
+                        label: controller.checkLogIn() ? 'Logout' : 'Login',
+                        onPressed: () => controller.checkLogIn()
+                            ? controller.signOut()
+                            : controller.signIn(),
+                      ),
                     ),
                   ],
                 ),

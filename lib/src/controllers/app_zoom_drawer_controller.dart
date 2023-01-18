@@ -8,6 +8,7 @@ class AppZoomDrawerController extends GetxController {
   final zoomDrawerController = ZoomDrawerController();
 
   Rxn<User?> user = Rxn();
+  RxBool checkLogin = RxBool(false);
 
   @override
   void onReady() {
@@ -17,9 +18,7 @@ class AppZoomDrawerController extends GetxController {
   }
 
   void toggleDrawer() {
-    print('toggle');
     zoomDrawerController.toggle!.call();
-    // zoomDrawerController.toggle?.call();
     update();
   }
 
@@ -27,10 +26,13 @@ class AppZoomDrawerController extends GetxController {
     Get.find<AuthController>().signOut();
   }
 
-  void signIn() {}
+  void signIn() {
+    Get.find<AuthController>().navigateToLoginPage();
+  }
 
   void website() {
-    _launch('https://github.com/DevGisoun');
+    // _launch('https://github.com/DevGisoun');
+    print(user.value!.email);
   }
 
   void facebook() {
@@ -41,7 +43,7 @@ class AppZoomDrawerController extends GetxController {
   void email() {
     final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
-      path: 'devgisoun@gmail.com',
+      path: user.value == null ? '' : user.value!.email,
     );
 
     _launch(emailLaunchUri.toString());
@@ -50,6 +52,14 @@ class AppZoomDrawerController extends GetxController {
   Future<void> _launch(String url) async {
     if (!await launch(url)) {
       throw 'Could not launch $url';
+    }
+  }
+
+  bool checkLogIn() {
+    if (user.value == null) {
+      return checkLogin(false);
+    } else {
+      return checkLogin(true);
     }
   }
 }

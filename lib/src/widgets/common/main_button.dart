@@ -3,6 +3,8 @@ import 'package:educational_app/src/utils/app_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../configs/themes/ui_parameters.dart';
+
 class MainButton extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
@@ -26,6 +28,9 @@ class MainButton extends StatelessWidget {
       child: SizedBox(
         height: AppLayout.getHeight(55),
         child: InkWell(
+          borderRadius: BorderRadius.circular(
+            AppLayout.getHeight(13),
+          ),
           onTap: enabled == false ? null : onTap,
           child: Container(
             decoration: BoxDecoration(

@@ -23,92 +23,106 @@ class HomeScreen extends GetView<AppZoomDrawerController> {
   Widget build(BuildContext context) {
     QuestionPaperController questionPaperController = Get.find();
 
-    return Scaffold(body: GetBuilder<AppZoomDrawerController>(
-      builder: (_) {
-        return ZoomDrawer(
-          controller: _.zoomDrawerController,
-          borderRadius: 50.0,
-          showShadow: true,
-          angle: 0.0,
-          style: DrawerStyle.DefaultStyle,
-          backgroundColor: Colors.white.withOpacity(0.5),
-          slideWidth: MediaQuery.of(context).size.width * 0.6,
-          menuScreen: const AppMenuScreen(),
-          mainScreen: Container(
-            decoration: BoxDecoration(gradient: mainGradient()),
-            child: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(mobileScreenPadding),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AppCircleButton(
-                          onTap: controller.toggleDrawer,
-                          child: const Icon(AppIcons.menuLeft),
-                        ),
-                        Gap(
-                          AppLayout.getHeight(10),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: AppLayout.getHeight(10),
+    return Scaffold(
+      body: GetBuilder<AppZoomDrawerController>(
+        builder: (_) {
+          return ZoomDrawer(
+            controller: _.zoomDrawerController,
+            borderRadius: 50.0,
+            showShadow: true,
+            angle: 0.0,
+            style: DrawerStyle.DefaultStyle,
+            backgroundColor: Colors.white.withOpacity(0.5),
+            slideWidth: MediaQuery.of(context).size.width * 0.4,
+            menuScreen: const AppMenuScreen(),
+            mainScreen: Container(
+              decoration: BoxDecoration(gradient: mainGradient()),
+              child: SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(mobileScreenPadding),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppCircleButton(
+                            onTap: controller.toggleDrawer,
+                            child: const Icon(AppIcons.menuLeft),
                           ),
-                          child: Row(
-                            children: [
-                              const Icon(AppIcons.peace),
-                              Text(
-                                'Hello, Friend !',
-                                style: detailText.copyWith(
-                                  color: onSurfaceTextColor,
+                          Gap(
+                            AppLayout.getHeight(10),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: AppLayout.getHeight(10),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(AppIcons.peace),
+                                Obx(
+                                  () {
+                                    var displayName = controller.user.value ==
+                                            null
+                                        ? 'Friend'
+                                        : controller.user.value!.displayName;
+                                    return Text(
+                                      'Hello, $displayName !',
+                                      style: detailText.copyWith(
+                                        color: onSurfaceTextColor,
+                                      ),
+                                    );
+                                  },
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        const Text(
-                          'What do you want to learn today ?',
-                          style: headerText,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: AppLayout.getWidth(8),
-                      ),
-                      child: ContentArea(
-                        addPadding: false,
-                        child: Obx(
-                          () => ListView.separated(
-                            padding: UIParameters.mobileScreenPadding,
-                            shrinkWrap: true,
-                            itemBuilder: (BuildContext context, int index) {
-                              return QuestionCard(
-                                model: questionPaperController.allPapers[index],
-                              );
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return Gap(
-                                AppLayout.getHeight(20),
-                              );
-                            },
-                            itemCount: questionPaperController.allPapers.length,
+                          Text(
+                            'What do you want to learn today ?',
+                            style: headerText.copyWith(
+                              fontSize: AppLayout.getHeight(20),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppLayout.getWidth(8),
+                        ),
+                        child: ContentArea(
+                          addPadding: false,
+                          child: Obx(
+                            () => ListView.separated(
+                              padding: UIParameters.mobileScreenPadding,
+                              shrinkWrap: true,
+                              itemBuilder: (BuildContext context, int index) {
+                                return QuestionCard(
+                                  model:
+                                      questionPaperController.allPapers[index],
+                                );
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return Gap(
+                                  AppLayout.getHeight(20),
+                                );
+                              },
+                              itemCount:
+                                  questionPaperController.allPapers.length,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
-    ));
+          );
+        },
+      ),
+    );
   }
 }

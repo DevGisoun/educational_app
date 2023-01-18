@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+/// Json 데이터를 Firebase에 업로드
 class DataUploader extends GetxController {
   @override
   void onReady() {

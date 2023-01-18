@@ -11,6 +11,7 @@ class ThemeController extends GetxController {
   @override
   void onInit() {
     initializeThemeData();
+
     super.onInit();
   }
 

@@ -26,14 +26,24 @@ class AuthController extends GetxController {
         seconds: 1,
       ),
     );
+
+    /// Firebase Auth 인스턴스 초기화
     _auth = FirebaseAuth.instance;
+
+    /// User 로그인 상태 변경 관리
     _authStateChanges = _auth.authStateChanges();
+    // User 정보 존재 시 User Class에 추가
     _authStateChanges.listen(
       (User? user) {
         _user.value = user;
       },
     );
     navToIntroduction();
+  }
+
+  /// Introduction 페이지 이동 후 History 전체 삭제
+  void navToIntroduction() {
+    Get.offAllNamed('/introduction');
   }
 
   signinWithGoogle() async {
@@ -79,11 +89,6 @@ class AuthController extends GetxController {
     } on FirebaseException catch (e) {
       AppLogger.e(e);
     }
-  }
-
-  /// 페이지 이동 후 History 전체 삭제
-  void navToIntroduction() {
-    Get.offAllNamed('/introduction');
   }
 
   void navigateToHomePage() {

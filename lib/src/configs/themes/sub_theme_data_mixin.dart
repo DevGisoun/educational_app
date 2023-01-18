@@ -6,6 +6,8 @@ import 'app_colors.dart';
 
 mixin SubThemeDataMixin {
   /// Text 테마 반환
+  ///
+  /// (Google Font)
   TextTheme getTextThemes() {
     return GoogleFonts.quicksandTextTheme(
       const TextTheme(

@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:educational_app/src/configs/themes/app_colors.dart';
 import 'package:educational_app/src/configs/themes/settings_icons.dart';
 import 'package:educational_app/src/configs/themes/ui_parameters.dart';
 import 'package:educational_app/src/controllers/app_zoom_drawer_controller.dart';
 import 'package:educational_app/src/utils/app_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 class AppMenuScreen extends GetView<AppZoomDrawerController> {
@@ -43,10 +45,27 @@ class AppMenuScreen extends GetView<AppZoomDrawerController> {
               ),
               Padding(
                 padding: EdgeInsets.only(
+                  top: AppLayout.getHeight(10),
                   right: MediaQuery.of(context).size.width * 0.3,
                 ),
                 child: Column(
                   children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                        AppLayout.getHeight(50),
+                      ),
+                      child: SizedBox(
+                        width: AppLayout.getHeight(50),
+                        height: AppLayout.getHeight(50),
+                        child: CachedNetworkImage(
+                          imageUrl: controller.user.value!.photoURL!,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Gap(
+                      AppLayout.getHeight(10),
+                    ),
                     Obx(
                       () => controller.user.value == null
                           ? const SizedBox()

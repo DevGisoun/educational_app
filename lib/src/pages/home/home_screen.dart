@@ -36,7 +36,9 @@ class HomeScreen extends GetView<AppZoomDrawerController> {
             slideWidth: MediaQuery.of(context).size.width * 0.4,
             menuScreen: const AppMenuScreen(),
             mainScreen: Container(
-              decoration: BoxDecoration(gradient: mainGradient()),
+              decoration: BoxDecoration(
+                gradient: mainGradient(),
+              ),
               child: SafeArea(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

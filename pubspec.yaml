@@ -97,6 +97,9 @@ flutter:
     - family: AppIcons
       fonts:
         - asset: assets/icons/AppIcons.ttf
+    - family: SettingsIcons
+      fonts:
+        - asset: assets/icons/SettingsIcons.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

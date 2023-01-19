@@ -1,4 +1,5 @@
 import 'package:educational_app/src/configs/themes/app_colors.dart';
+import 'package:educational_app/src/configs/themes/settings_icons.dart';
 import 'package:educational_app/src/configs/themes/ui_parameters.dart';
 import 'package:educational_app/src/controllers/app_zoom_drawer_controller.dart';
 import 'package:educational_app/src/utils/app_layout.dart';
@@ -61,25 +62,30 @@ class AppMenuScreen extends GetView<AppZoomDrawerController> {
                     const Spacer(
                       flex: 1,
                     ),
-                    _DrawerButton(
-                      icon: Icons.web,
-                      label: 'Website',
-                      onPressed: () => controller.website(),
-                    ),
-                    _DrawerButton(
-                      icon: Icons.facebook,
-                      label: 'Facebook',
-                      onPressed: () => controller.facebook(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 25,
-                      ),
-                      child: _DrawerButton(
-                        icon: Icons.email,
-                        label: 'E-mail',
-                        onPressed: () => controller.email(),
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _DrawerButton(
+                          icon: Icons.web,
+                          label: 'Website',
+                          onPressed: () => controller.website(),
+                        ),
+                        _DrawerButton(
+                          icon: SettingsIcons.github_circled,
+                          label: 'Github',
+                          onPressed: () => controller.github(),
+                        ),
+                        _DrawerButton(
+                          icon: Icons.email,
+                          label: 'E-mail',
+                          onPressed: () => controller.email(),
+                        ),
+                        _DrawerButton(
+                          icon: Icons.settings,
+                          label: 'Settings',
+                          onPressed: () => controller.settings(),
+                        ),
+                      ],
                     ),
                     const Spacer(
                       flex: 4,

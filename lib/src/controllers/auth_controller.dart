@@ -77,6 +77,8 @@ class AuthController extends GetxController {
       'email': account.email,
       'name': account.displayName,
       'profilepic': account.photoUrl,
+      'github': '',
+      'website': '',
     });
   }
 

@@ -1,8 +1,12 @@
 import 'package:educational_app/src/controllers/auth_controller.dart';
+import 'package:educational_app/src/pages/settings/settings_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../firebase_ref/references.dart';
 
 class AppZoomDrawerController extends GetxController {
   final zoomDrawerController = ZoomDrawerController();
@@ -30,13 +34,28 @@ class AppZoomDrawerController extends GetxController {
     Get.find<AuthController>().navigateToLoginPage();
   }
 
-  void website() {
-    // _launch('https://github.com/DevGisoun');
-    print(user.value!.email);
+  void website() async {
+    try {
+      await userRef.doc(user.value!.email).get().then((user) {
+        _launch(user['website']);
+      });
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 
-  void facebook() {
-    _launch('https://facebook.com');
+  void github() async {
+    try {
+      await userRef.doc(user.value!.email).get().then((user) {
+        _launch('https://github.com/${user['github']}');
+      });
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 
   /// 이메일 클라이언트 열기
@@ -47,6 +66,11 @@ class AppZoomDrawerController extends GetxController {
     );
 
     _launch(emailLaunchUri.toString());
+  }
+
+  /// URLSettingPage 이동
+  void settings() {
+    Get.toNamed(SettingsPage.routeName);
   }
 
   Future<void> _launch(String url) async {

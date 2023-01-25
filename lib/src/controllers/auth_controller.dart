@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:educational_app/src/firebase_ref/references.dart';
 import 'package:educational_app/src/pages/home/home_screen.dart';
 import 'package:educational_app/src/pages/login/login_screen.dart';
@@ -6,6 +7,8 @@ import 'package:educational_app/src/widgets/dialogs/dialog_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../services/firebase_storage_service.dart';
 
 class AuthController extends GetxController {
   /// App 실행 시 사용자 로그인 여부 체크
@@ -57,10 +60,13 @@ class AuthController extends GetxController {
           idToken: _authAccount.idToken,
           accessToken: _authAccount.accessToken,
         );
+        print(_credential);
 
         await _auth.signInWithCredential(_credential);
         await saveUser(account);
         navigateToHomePage();
+      } else {
+        Get.back();
       }
     } on Exception catch (e) {
       AppLogger.e(e);
@@ -73,19 +79,31 @@ class AuthController extends GetxController {
   }
 
   saveUser(GoogleSignInAccount account) async {
+    QuerySnapshot<Map<String, dynamic>> data =
+        await userRef.where('email', isEqualTo: account.email).get();
+    print(data.docs.isNotEmpty);
+
     userRef.doc(account.email).set({
       'email': account.email,
       'name': account.displayName,
-      'profilepic': await userRef
-          .doc(account.email)
-          .get()
-          .then((user) => user['profilepic']),
-      'github':
-          await userRef.doc(account.email).get().then((user) => user['github']),
-      'website': await userRef
-          .doc(account.email)
-          .get()
-          .then((user) => user['website']),
+      'profilepic': data.docs.isNotEmpty
+          ? await userRef
+              .doc(account.email)
+              .get()
+              .then((user) => user['profilepic'])
+          : await Get.find<FirebaseStorageService>().getSplashLogoImage(),
+      'github': data.docs.isNotEmpty
+          ? await userRef
+              .doc(account.email)
+              .get()
+              .then((user) => user['github'])
+          : '',
+      'website': data.docs.isNotEmpty
+          ? await userRef
+              .doc(account.email)
+              .get()
+              .then((user) => user['website'])
+          : '',
     });
   }
 
@@ -93,7 +111,10 @@ class AuthController extends GetxController {
     AppLogger.d('Sign Out');
 
     try {
+      final GoogleSignIn _googleSignin = GoogleSignIn();
+
       await _auth.signOut();
+      await _googleSignin.signOut();
       navigateToHomePage();
     } on FirebaseException catch (e) {
       AppLogger.e(e);

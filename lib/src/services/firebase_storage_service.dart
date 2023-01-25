@@ -24,4 +24,18 @@ class FirebaseStorageService extends GetxService {
       return null;
     }
   }
+
+  Future<String?> getSplashLogoImage() async {
+    try {
+      var urlRef =
+          firebaseStorage.child('basic_images').child('app_splash_logo.png');
+
+      var imgUrl = await urlRef.getDownloadURL();
+
+      return imgUrl;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }

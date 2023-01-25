@@ -65,6 +65,9 @@ class AppZoomDrawerController extends GetxController {
   void website() async {
     try {
       await userRef.doc(user.value!.email).get().then((user) {
+        if (user['website'] == null || user['website'] == '') {
+          return;
+        }
         _launch(user['website']);
       });
     } catch (e) {

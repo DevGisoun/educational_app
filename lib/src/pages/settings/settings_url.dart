@@ -1,4 +1,5 @@
 import 'package:educational_app/src/configs/themes/app_colors.dart';
+import 'package:educational_app/src/configs/themes/custom_text_styles.dart';
 import 'package:educational_app/src/configs/themes/settings_icons.dart';
 import 'package:educational_app/src/controllers/settings/settings_controller.dart';
 import 'package:educational_app/src/controllers/settings/settings_url_controller.dart';
@@ -42,62 +43,95 @@ class SettingsURL extends GetView<SettingsURLController> {
         body: Padding(
           padding: EdgeInsets.only(
             top: AppLayout.getHeight(10),
-            right: AppLayout.getWidth(30),
           ),
           child: Obx(
-            () => Column(
-              children: [
-                _urlTextField(
-                  icon: SettingsIcons.github_circled,
-                  title: 'Github',
-                  controller: textEditingController_github,
-                  initText: controller.githubURL,
-                ),
-                Gap(
-                  AppLayout.getHeight(30),
-                ),
-                _urlTextField(
-                  icon: SettingsIcons.web_asset,
-                  title: 'Website',
-                  controller: textEditingController_website,
-                  initText: controller.websiteURL,
-                ),
-                Gap(
-                  AppLayout.getHeight(30),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        controller.setURL(
-                          github: textEditingController_github.text,
-                          website: textEditingController_website.text,
-                        );
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(
-                          AppLayout.getHeight(10),
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                            color: onSurfaceTextColor,
+            () {
+              if (controller.user != null) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    right: AppLayout.getWidth(30),
+                  ),
+                  child: Column(
+                    children: [
+                      _urlTextField(
+                        icon: SettingsIcons.github_circled,
+                        title: 'Github',
+                        controller: textEditingController_github,
+                        initText: controller.githubURL,
+                      ),
+                      Gap(
+                        AppLayout.getHeight(30),
+                      ),
+                      _urlTextField(
+                        icon: SettingsIcons.web_asset,
+                        title: 'Website',
+                        controller: textEditingController_website,
+                        initText: controller.websiteURL,
+                      ),
+                      Gap(
+                        AppLayout.getHeight(30),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              controller.setURL(
+                                github: textEditingController_github.text,
+                                website: textEditingController_website.text,
+                              );
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(
+                                AppLayout.getHeight(10),
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1,
+                                  color: onSurfaceTextColor,
+                                ),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: const Text(
+                                'Check',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(6),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                return Center(
+                  child: InkWell(
+                    onTap: () {
+                      controller.navigateToLoginPage();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppLayout.getWidth(50),
+                        vertical: AppLayout.getHeight(10),
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1,
+                          color: onSurfaceTextColor,
                         ),
-                        child: const Text(
-                          'Check',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        controller.pageMessage.toString(),
+                        style: cardTitles(Get.context),
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                );
+              }
+            },
           ),
         ),
       ),

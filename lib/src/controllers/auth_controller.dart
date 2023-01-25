@@ -72,13 +72,20 @@ class AuthController extends GetxController {
     return _user.value;
   }
 
-  saveUser(GoogleSignInAccount account) {
+  saveUser(GoogleSignInAccount account) async {
     userRef.doc(account.email).set({
       'email': account.email,
       'name': account.displayName,
-      'profilepic': account.photoUrl,
-      'github': '',
-      'website': '',
+      'profilepic': await userRef
+          .doc(account.email)
+          .get()
+          .then((user) => user['profilepic']),
+      'github':
+          await userRef.doc(account.email).get().then((user) => user['github']),
+      'website': await userRef
+          .doc(account.email)
+          .get()
+          .then((user) => user['website']),
     });
   }
 

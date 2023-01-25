@@ -34,7 +34,9 @@ class HomeScreen extends GetView<AppZoomDrawerController> {
             style: DrawerStyle.DefaultStyle,
             backgroundColor: Colors.white.withOpacity(0.5),
             slideWidth: MediaQuery.of(context).size.width * 0.4,
-            menuScreen: const AppMenuScreen(),
+            menuScreen: Obx(
+              () => AppMenuScreen(userModel: controller.userModel.value),
+            ),
             mainScreen: Container(
               decoration: BoxDecoration(
                 gradient: mainGradient(),
@@ -64,10 +66,10 @@ class HomeScreen extends GetView<AppZoomDrawerController> {
                                 const Icon(AppIcons.peace),
                                 Obx(
                                   () {
-                                    var displayName = controller.user.value ==
-                                            null
-                                        ? 'Friend'
-                                        : controller.user.value!.displayName;
+                                    var displayName =
+                                        controller.user.value == null
+                                            ? 'Friend'
+                                            : controller.userModel.value.name;
                                     return Text(
                                       'Hello, $displayName !',
                                       style: detailText.copyWith(

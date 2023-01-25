@@ -3,13 +3,21 @@ import 'package:educational_app/src/configs/themes/app_colors.dart';
 import 'package:educational_app/src/configs/themes/settings_icons.dart';
 import 'package:educational_app/src/configs/themes/ui_parameters.dart';
 import 'package:educational_app/src/controllers/app_zoom_drawer_controller.dart';
+import 'package:educational_app/src/models/user_model.dart';
 import 'package:educational_app/src/utils/app_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '../../firebase_ref/loading_status.dart';
+
 class AppMenuScreen extends GetView<AppZoomDrawerController> {
-  const AppMenuScreen({super.key});
+  final UserModel userModel;
+
+  const AppMenuScreen({
+    super.key,
+    required this.userModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,19 +58,36 @@ class AppMenuScreen extends GetView<AppZoomDrawerController> {
                 ),
                 child: Column(
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(
-                        AppLayout.getHeight(50),
-                      ),
-                      child: SizedBox(
+                    if (controller.loadingStatus.value == LoadingStatus.loading)
+                      SizedBox(
                         width: AppLayout.getHeight(50),
                         height: AppLayout.getHeight(50),
-                        child: CachedNetworkImage(
-                          imageUrl: controller.user.value!.photoURL!,
-                          fit: BoxFit.cover,
+                        child: Image.asset(
+                          'assets/images/app_splash_logo.png',
                         ),
                       ),
-                    ),
+                    if (controller.loadingStatus.value ==
+                        LoadingStatus.completed)
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(
+                          AppLayout.getHeight(50),
+                        ),
+                        child: SizedBox(
+                          width: AppLayout.getHeight(50),
+                          height: AppLayout.getHeight(50),
+                          child: CachedNetworkImage(
+                            imageUrl: userModel.profilepic!,
+                            placeholder: (context, url) => Container(
+                              alignment: Alignment.center,
+                              child: const CircularProgressIndicator(),
+                            ),
+                            fit: BoxFit.cover,
+                            errorWidget: (context, url, error) => Image.asset(
+                              'assets/images/app_splash_logo.png',
+                            ),
+                          ),
+                        ),
+                      ),
                     Gap(
                       AppLayout.getHeight(10),
                     ),
@@ -84,20 +109,29 @@ class AppMenuScreen extends GetView<AppZoomDrawerController> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _DrawerButton(
-                          icon: Icons.web,
-                          label: 'Website',
-                          onPressed: () => controller.website(),
+                        Visibility(
+                          visible: controller.user.value != null,
+                          child: _DrawerButton(
+                            icon: Icons.web,
+                            label: 'Website',
+                            onPressed: () => controller.website(),
+                          ),
                         ),
-                        _DrawerButton(
-                          icon: SettingsIcons.github_circled,
-                          label: 'Github',
-                          onPressed: () => controller.github(),
+                        Visibility(
+                          visible: controller.user.value != null,
+                          child: _DrawerButton(
+                            icon: SettingsIcons.github_circled,
+                            label: 'Github',
+                            onPressed: () => controller.github(),
+                          ),
                         ),
-                        _DrawerButton(
-                          icon: Icons.email,
-                          label: 'E-mail',
-                          onPressed: () => controller.email(),
+                        Visibility(
+                          visible: controller.user.value != null,
+                          child: _DrawerButton(
+                            icon: Icons.email,
+                            label: 'E-mail',
+                            onPressed: () => controller.email(),
+                          ),
                         ),
                         _DrawerButton(
                           icon: Icons.settings,
@@ -111,11 +145,9 @@ class AppMenuScreen extends GetView<AppZoomDrawerController> {
                     ),
                     Obx(
                       () => _DrawerButton(
-                        // icon: Icons.logout,
                         icon: controller.checkLogIn()
                             ? Icons.logout
                             : Icons.login,
-                        // label: 'Logout',
                         label: controller.checkLogIn() ? 'Logout' : 'Login',
                         onPressed: () => controller.checkLogIn()
                             ? controller.signOut()

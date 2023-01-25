@@ -5,6 +5,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 final fireStore = FirebaseFirestore.instance;
 
 final userRef = fireStore.collection('users');
+CollectionReference<Map<String, dynamic>> userMyRecentTestsRef({
+  required String email,
+}) =>
+    userRef.doc(email).collection('myRecentTests');
+
 final questionPaperRef = fireStore.collection('questionPapers');
 DocumentReference questionRef({
   required String paperID,

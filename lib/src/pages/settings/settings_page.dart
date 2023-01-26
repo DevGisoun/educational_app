@@ -1,5 +1,6 @@
 import 'package:educational_app/src/configs/themes/app_colors.dart';
 import 'package:educational_app/src/controllers/settings/settings_controller.dart';
+import 'package:educational_app/src/pages/settings/settings_profile.dart';
 import 'package:educational_app/src/pages/settings/settings_url.dart';
 import 'package:educational_app/src/utils/app_layout.dart';
 import 'package:flutter/material.dart';
@@ -109,7 +110,9 @@ class SettingsPage extends GetView<SettingsController> {
                   children: [
                     // Account
                     Center(
-                      child: Text(controller.settingsList[0]['name']),
+                      child: SettingsProfile(
+                        settingsController: controller,
+                      ),
                     ),
                     // URL
                     Center(

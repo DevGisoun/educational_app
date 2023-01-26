@@ -4,6 +4,7 @@ import 'package:educational_app/src/configs/themes/settings_icons.dart';
 import 'package:educational_app/src/controllers/settings/settings_controller.dart';
 import 'package:educational_app/src/controllers/settings/settings_url_controller.dart';
 import 'package:educational_app/src/widgets/common/main_button.dart';
+import 'package:educational_app/src/widgets/settings/settings_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -27,18 +28,8 @@ class SettingsURL extends GetView<SettingsURLController> {
       onTap: () => settingsController.unFocusKeyboard(),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          title: Text(
-            'URL',
-            style: TextStyle(
-              fontSize: AppLayout.getHeight(20),
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+        appBar: const SettingsAppBar(
+          title: 'URL',
         ),
         body: Padding(
           padding: EdgeInsets.only(
